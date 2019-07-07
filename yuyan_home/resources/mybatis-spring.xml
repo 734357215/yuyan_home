@@ -7,15 +7,14 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
         
-        <import resource="classpath:spring-jdbc.xml"/>
-        <import resource="classpath:mybatis-spring.xml"></import>
-        <import resource="classpath:spring-tx.xml"></import>
-		<!--   Mapper扫描器 MyBatis-Spring.jar -->
-        <bean id="mapperScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        	<property name="basePackage" value="com.yuyan.dao"/>
-        	<property name="sqlSessionFactoryBeanName">
-        		<value>factory</value>
+        <!-- 配置SqlSessionFactory对象 MyBatis-Spring.jar中 -->
+        <bean id="factory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        	<property name="dataSource" ref="dataSource"/>
+        	<property name="configLocation" value="classpath:mybatis-config.xml"></property>
+        	<property name="mapperLocations">
+        		<list>
+        			<value>classpath:com/yuyan/dao/**/*.xml</value>
+        		</list>
         	</property>
         </bean>
-        <context:component-scan base-package="com.yuyan.service.impl"/>
 </beans>

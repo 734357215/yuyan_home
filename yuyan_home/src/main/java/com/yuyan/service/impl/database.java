@@ -2,9 +2,7 @@ package com.yuyan.service.impl;
 
 import java.io.IOException;
 import java.io.InputStream;
-
 import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.jdbc.Null;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
@@ -23,9 +21,9 @@ public class database {
 	}
 	
 	public static SqlSession openSession() {
-		return sessionFactory.openSession();
+		SqlSession session = sessionFactory.openSession();
+		return session;
 	}
-	
 	public static String closeSession(SqlSession session) {
 		if (session!=null) {
 			session.close();

@@ -4,8 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
+<typeAliases>
+	<package name="com.yuyan.model"/>
+</typeAliases>
 
-<properties resource="database.properties"/>
+<!-- <properties resource="database.properties"/>
 <typeAliases>
 	<package name="com.yuyan.model"/>
 </typeAliases>
@@ -22,5 +25,5 @@
   </environments>
   <mappers>
     <mapper resource="com/yuyan/dao/PeopleMapper.xml"/>
-  </mappers>
+  </mappers> -->
 </configuration>

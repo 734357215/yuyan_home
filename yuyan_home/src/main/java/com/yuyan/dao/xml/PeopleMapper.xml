@@ -1,0 +1,34 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yuyan.dao.PeopleMapper">
+
+	<resultMap type="com.yuyan.model.People" id="peopleById">
+	    <id property="id" column="id"/>
+	    <result property="chineseName" column="chineseName"/>
+	    <result property="age" column="age"/>
+	</resultMap>
+
+    <select id="findPeopleById" resultMap="peopleById">
+        select * from people where id = #{id}
+    </select>
+    
+	<select id="findCount" resultType="int">
+        select count(*) from people
+    </select>
+    
+    <insert id="addPeople" parameterType="com.yuyan.model.People">
+    	insert into people(id,chineseName,age) values(#{id},#{chineseName},#{age})
+    </insert>
+    
+	<update id="updatePeople">
+	  update people set
+	   	chineseName = #{chineseName},
+	    age = #{age}
+	  where id = #{id}
+	</update>
+
+
+
+</mapper>

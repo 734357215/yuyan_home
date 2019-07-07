@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans.xsd 
+       http://www.springframework.org/schema/context 
+       http://www.springframework.org/schema/context/spring-context.xsd 
+       http://www.springframework.org/schema/mvc 
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <!--注解方式-->
+<!--     <mvc:annotation-driven>
+        <mvc:message-converters>
+            <ref bean="fastjsonBean"/>
+        </mvc:message-converters>
+    </mvc:annotation-driven> -->
+ 
+    <!--使用fastjson-->
+<!--     <bean id="fastjsonBean" class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+        <property name="supportedMediaTypes">
+            <list>
+                <value>text/html;charset=UTF-8</value>
+                <value>application/json;charset=UTF-8</value>
+            </list>
+        </property>
+        <property name="fastJsonConfig">
+            <bean class="com.alibaba.fastjson.support.config.FastJsonConfig">
+                <property name="features">
+                    <list>
+                        <value>AllowArbitraryCommas</value>
+                        <value>AllowUnQuotedFieldNames</value>
+                        <value>DisableCircularReferenceDetect</value>
+                    </list>
+                </property>
+                <property name="dateFormat" value="yyyy-MM-dd HH:mm:sss"/>
+            </bean>
+ 
+        </property>
+    </bean> -->
+ 
+    <!--静态资源-->
+<!--     <mvc:resources mapping="/img/**" location="/WEB-INF/img/"/>
+    <mvc:resources mapping="/css/**" location="/WEB-INF/css/"/>
+    <mvc:resources mapping="/js/**" location="/WEB-INF/js/"/> -->
+ 
+    <!--文件上传-->
+<!--     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="maxUploadSize" value="10240000"/>
+    </bean> -->
+ 
+    <!--登录拦截器-->
+<!--     <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/**/**.html"/>
+            <mvc:exclude-mapping path="/**/**.js"/>
+            <mvc:exclude-mapping path="/**/**.css"/>
+            <mvc:exclude-mapping path="/**/**.jpg"/>
+            <mvc:exclude-mapping path="/**/**.png"/>
+            <mvc:exclude-mapping path="/**/**.gif"/>
+            <bean class="net.wanho.interceptor.LoginInterCeptor"/>     自定义的登陆拦截
+        </mvc:interceptor>
+    </mvc:interceptors> -->
+    
+     <!--视图解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+    
+	<!--只扫描@Controller 保证每个层级只做自己相关的事情-->
+    <context:component-scan base-package="com.yuyan.controller"/>
+    
+    <!--映射静态资源路径  -->
+    <mvc:resources location="/statics/" mapping="/statics/**"/>
+    
+    <!--20190707 配置控制器返回 Media元素的编码 ，这里可以解决返回为乱码的问题 update by bin -->
+	<mvc:annotation-driven>
+    	<mvc:message-converters>
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+    			<property name="supportedMediaTypes">
+    				<list>
+    					<value>application/json;charset=UTF-8</value>
+    				</list>
+    			</property>
+    		</bean>
+    		<bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+				<property name="supportedMediaTypes">
+    				<list>
+    					<value>text/html;charset=utf-8</value>
+						<value>application/json</value>
+    				</list>
+    			</property>
+    			<property name="features">
+    				<list>
+    					<value>WriteDateUseDateFormat</value>
+    				</list>
+    			</property>
+    		</bean>
+    	</mvc:message-converters>
+    </mvc:annotation-driven>
+ 
+</beans>
